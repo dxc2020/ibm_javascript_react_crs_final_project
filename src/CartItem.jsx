@@ -41,6 +41,7 @@ const CartItem = ({ onContinueShopping }) => {
           name: item.name,
           quantity: item.quantity - 1
         }));
+        
       } else {
         dispatch(removeItem(item.name));
       }
