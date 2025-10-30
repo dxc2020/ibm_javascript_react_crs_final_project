@@ -13,7 +13,16 @@ function ProductList({ onHomeClick }) {
     const { addItem } = CartSlice.actions;
 
      // Access cart items from Redux store
-     const cartItems = useSelector(state => state.cart.items);
+    const cartItems = useSelector(state => state.cart.items);
+
+    useEffect(() => {
+        // Create a map of items currently in cart
+        const addedMap = {};
+        cartItems.forEach(item => {
+          addedMap[item.name] = true;
+        });
+        setAddedToCart(addedMap);
+    }, [cartItems]);
 
     const plantsArray = [
         {
@@ -277,6 +286,8 @@ function ProductList({ onHomeClick }) {
         return cartItems.reduce((total, item) => total + item.quantity, 0);
     };
 
+
+
     return (
         <div>
             <div className="navbar" style={styleObj}>
@@ -328,7 +339,7 @@ function ProductList({ onHomeClick }) {
                              //</div>   Add to Cart
                              disabled={addedToCart[plant.name]}
                                         >
-                                  Add to Cart
+                                  {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"}
                                  
                             </button>
                             </div>
