@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
@@ -6,6 +6,7 @@ import './CartItem.css';
 const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
+  const [showMessage, setShowMessage] = useState(false);
 
   // Calculate total amount for all products in the cart
 
@@ -25,7 +26,9 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const handleCheckoutShopping = (e) => {
-    alert('Functionality to be added for future reference');
+    //window.alert('Functionality to be added for future reference');
+    e.preventDefault();
+    setShowMessage('Functionality to be added for future reference');
   };
 
   const handleIncrement = (item) => {
@@ -87,8 +90,16 @@ const CartItem = ({ onContinueShopping }) => {
       <div className="continue_shopping_btn">
         <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
         <br />
-        <button className="get-started-button1">Checkout</button>
+        
+        <button className="get-started-button1" onClick={handleCheckoutShopping}>Checkout</button>
+          
       </div>
+     
+      {showMessage && (
+        <div style={{ marginTop: '10px', color: 'green', fontWeight: 'bold' }}>
+          {showMessage}
+        </div> 
+      )}
     </div>
   );
 };
